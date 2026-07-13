@@ -76,7 +76,7 @@ export function Abertura() {
           fontWeight: 700,
         }}
       >
-        táPAGO!
+        TáPago!
       </Text>
       <CarouselWrapper>
         <CarouselTrack
