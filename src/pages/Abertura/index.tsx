@@ -61,8 +61,8 @@ export function Abertura() {
         height: "100dvh",
         justifyContent: "flex-end",
         alignItems: "center",
-        padding: "48px 36px",
-        gap: "60px",
+        padding: "36px",
+        gap: "50px",
         overflowX: "hidden",
       }}
     >
