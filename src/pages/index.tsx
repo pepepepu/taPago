@@ -1,0 +1,9 @@
+export { default as Abertura } from "./Abertura";
+export { default as Ajustes } from "./Ajustes";
+export { default as CriarConta } from "./CriarConta";
+export { default as Entrar } from "./Entrar";
+export { default as EsqueciSenha } from "./EsqueciSenha";
+export { default as Inicio } from "./Inicio";
+export { default as MeuPerfil } from "./MeuPerfil";
+export { default as MinhasContas } from "./MinhasContas";
+export { default as RaioX } from "./RaioX";
