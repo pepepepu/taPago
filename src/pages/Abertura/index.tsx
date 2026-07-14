@@ -1,58 +1,26 @@
-import { motion } from "framer-motion";
-import {
-  PiArrowRightBold,
-  PiCalendarCheckFill,
-  PiCoinsFill,
-  PiCreditCardFill,
-  PiMoneyFill,
-  PiPiggyBankFill,
-  PiPlusBold,
-  PiWalletFill,
-} from "react-icons/pi";
+import { PiArrowRightBold, PiPlusBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { Button, Container, Text } from "../../components";
+import happyBilly from "../../assets/billy/realyHappy.png";
 
-const CarouselWrapper = styled.div`
+const ImageWrapper = styled.div`
   width: 100vw;
-  overflow: hidden;
   display: flex;
   flex: 1;
-`;
-
-const CarouselTrack = styled(motion.div)`
-  display: flex;
-  width: max-content;
-`;
-
-const IconGroup = styled.div`
-  display: flex;
-  gap: 54px;
-  padding-right: 54px;
-`;
-
-const IconBox = styled.div<{ $bgColor: string }>`
-  width: 72px;
-  border-radius: 20px;
-  background-color: ${({ $bgColor }) => $bgColor};
-  display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+`;
+
+const HeroImage = styled.img`
+  width: clamp(250px, 80%, 500px);
+  max-height: 100%;
+  object-fit: contain;
 `;
 
 export function Abertura() {
   const navigate = useNavigate();
   const theme = useTheme();
-
-  const featureIcons = [
-    { Icon: PiWalletFill },
-    { Icon: PiCalendarCheckFill },
-    { Icon: PiPiggyBankFill },
-    { Icon: PiMoneyFill },
-    { Icon: PiCoinsFill },
-    { Icon: PiCreditCardFill },
-  ];
 
   return (
     <Container
@@ -69,7 +37,7 @@ export function Abertura() {
       <Text
         $color={theme.colors.black}
         $align="left"
-        $size="2rem"
+        $size="clamp(2rem, 5vw, 2.5rem)"
         style={{
           fontFamily: theme.fonts.title,
           lineHeight: 1,
@@ -78,33 +46,10 @@ export function Abertura() {
       >
         bills.
       </Text>
-      <CarouselWrapper>
-        <CarouselTrack
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
-        >
-          <IconGroup>
-            {featureIcons.map((item, index) => {
-              const Icon = item.Icon;
-              return (
-                <IconBox key={`group1-${index}`} $bgColor="transparent">
-                  <Icon size="4rem" color={theme.colors.black} />
-                </IconBox>
-              );
-            })}
-          </IconGroup>
-          <IconGroup>
-            {featureIcons.map((item, index) => {
-              const Icon = item.Icon;
-              return (
-                <IconBox key={`group2-${index}`} $bgColor="transparent">
-                  <Icon size="4rem" color={theme.colors.black} />
-                </IconBox>
-              );
-            })}
-          </IconGroup>
-        </CarouselTrack>
-      </CarouselWrapper>
+
+      <ImageWrapper>
+        <HeroImage src={happyBilly} />
+      </ImageWrapper>
 
       <Container
         style={{
@@ -118,7 +63,7 @@ export function Abertura() {
         <Text
           $color={theme.colors.black}
           $align="left"
-          $size="2.5rem"
+          $size="clamp(1.8rem, 6vw, 3rem)"
           style={{
             fontFamily: theme.fonts.body,
             fontWeight: 500,
@@ -130,7 +75,7 @@ export function Abertura() {
         <Text
           $color={theme.colors.black}
           $align="left"
-          $size="1.2rem"
+          $size="clamp(1rem, 3vw, 1.5rem)"
           style={{
             fontFamily: theme.fonts.body,
             fontWeight: 400,
@@ -165,7 +110,7 @@ export function Abertura() {
           <Text
             $color={theme.colors.white}
             $align="center"
-            $size="1rem"
+            $size="clamp(0.875rem, 2.5vw, 1.125rem)"
             style={{
               fontFamily: theme.fonts.highlight,
               fontWeight: 400,
@@ -173,7 +118,10 @@ export function Abertura() {
           >
             entrar
           </Text>
-          <PiArrowRightBold size={"1rem"} color={theme.colors.white} />
+          <PiArrowRightBold
+            size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
+            color={theme.colors.white}
+          />
         </Button>
         <Button
           $bgColor="transparent"
@@ -191,7 +139,7 @@ export function Abertura() {
           <Text
             $color={theme.colors.black}
             $align="center"
-            $size="1rem"
+            $size="clamp(0.875rem, 2.5vw, 1.125rem)"
             style={{
               fontFamily: theme.fonts.highlight,
               fontWeight: 500,
@@ -199,7 +147,10 @@ export function Abertura() {
           >
             criar conta
           </Text>
-          <PiPlusBold size={"1rem"} color={theme.colors.black} />
+          <PiPlusBold
+            size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
+            color={theme.colors.black}
+          />
         </Button>
       </Container>
     </Container>
