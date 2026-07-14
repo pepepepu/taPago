@@ -1,6 +1,6 @@
 {
-  "name": "táPAGO",
-  "short_name": "táPAGO",
+  "name": "bills",
+  "short_name": "bills",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

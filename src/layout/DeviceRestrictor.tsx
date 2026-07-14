@@ -2,7 +2,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Image } from "../components";
 
-import blockImage from "../assets/images/blocked.png";
+import blockImage from "../assets/billy/info.png";
 
 const WarningContainer = styled.div`
   display: flex;
@@ -50,9 +50,9 @@ export function DeviceRestrictor({ children }: DeviceRestrictorProps) {
         <Image src={blockImage} style={{ width: "300px" }} />
         <Title>Melhor experiência em dispositivos móveis</Title>
         <Message>
-          O TáPago é otimizado para celulares e tablets. Acesse pelo seu
-          dispositivo móvel ou ajuste o tamanho da janela do navegador para
-          continuar.
+          O <strong>bills</strong> é otimizado para celulares e tablets. Acesse
+          pelo seu dispositivo móvel ou ajuste o tamanho da janela do navegador
+          para continuar.
         </Message>
       </WarningContainer>
     );
