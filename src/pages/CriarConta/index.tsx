@@ -1,15 +1,15 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   PiArrowFatLeftFill,
   PiArrowRightBold,
   PiEyeClosedBold,
   PiEyeFill,
   PiSpinnerGapBold,
+  PiWarningCircleBold,
 } from "react-icons/pi";
-import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { Button, Container, Text, TextInput } from "../../components";
+import { useSignUp } from "../../hooks/useSignUp";
 
 const ScrollableArea = styled.div`
   flex: 1;
@@ -48,36 +48,41 @@ const itemVariants = {
   } as const,
 };
 
+const errorVariants = {
+  hidden: { opacity: 0, height: 0, marginTop: 0 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    marginTop: 16,
+    transition: { duration: 0.2 },
+  },
+  exit: { opacity: 0, height: 0, marginTop: 0, transition: { duration: 0.2 } },
+};
+
 export function CriarConta() {
-  const navigate = useNavigate();
   const theme = useTheme();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 2) value = value.slice(0, 2) + "/" + value.slice(2);
-    if (value.length > 5) value = value.slice(0, 5) + "/" + value.slice(5);
-    setBirthDate(value.slice(0, 10));
-  };
-
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/inicio");
-    }, 2000);
-  };
+  const {
+    name,
+    email,
+    birthDate,
+    password,
+    confirmPassword,
+    showPassword,
+    showConfirmPassword,
+    isLoading,
+    errorMsg,
+    handleNameChange,
+    handleEmailChange,
+    handlePasswordChange,
+    handleConfirmPasswordChange,
+    handleDateChange,
+    toggleShowPassword,
+    toggleShowConfirmPassword,
+    handleRegister,
+    goBack,
+    goToLogin,
+  } = useSignUp();
 
   return (
     <Container
@@ -108,7 +113,7 @@ export function CriarConta() {
         <MotionButton
           variants={itemVariants}
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={goBack}
           whileTap={{ scale: 0.8 }}
           style={{
             background: "transparent",
@@ -187,6 +192,38 @@ export function CriarConta() {
               junte-se a nós e domine seus boletos.
             </Text>
           </motion.div>
+          <AnimatePresence>
+            {errorMsg && (
+              <motion.div
+                variants={errorVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  background: `${theme.colors.red}20`,
+                  padding: "12px 16px",
+                  borderRadius: "8px",
+                  width: "100%",
+                  border: `1px solid ${theme.colors.red}50`,
+                }}
+              >
+                <PiWarningCircleBold size="1.2rem" color={theme.colors.red} />
+                <Text
+                  $color={theme.colors.red}
+                  $size="0.875rem"
+                  style={{
+                    fontFamily: theme.fonts.body,
+                    fontWeight: 500,
+                  }}
+                >
+                  {errorMsg}
+                </Text>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Container>
 
         <form
@@ -224,7 +261,7 @@ export function CriarConta() {
                 type="text"
                 placeholder="seu nome"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => handleNameChange(e.target.value)}
                 required
               />
             </Container>
@@ -280,7 +317,7 @@ export function CriarConta() {
                 type="email"
                 placeholder="seu@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => handleEmailChange(e.target.value)}
                 required
               />
             </Container>
@@ -315,14 +352,14 @@ export function CriarConta() {
                   type={showPassword ? "text" : "password"}
                   placeholder="crie uma senha"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => handlePasswordChange(e.target.value)}
                   required
-                  style={{ paddingRight: "48px" }}
+                  style={{ paddingRight: "48px", width: "100%" }}
                 />
                 <motion.button
                   type="button"
                   whileTap={{ scale: 0.8 }}
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={toggleShowPassword}
                   style={{
                     position: "absolute",
                     right: "16px",
@@ -377,14 +414,14 @@ export function CriarConta() {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="repita a senha"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e) => handleConfirmPasswordChange(e.target.value)}
                   required
-                  style={{ paddingRight: "48px" }}
+                  style={{ paddingRight: "48px", width: "100%" }}
                 />
                 <motion.button
                   type="button"
                   whileTap={{ scale: 0.8 }}
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onClick={toggleShowConfirmPassword}
                   style={{
                     position: "absolute",
                     right: "16px",
@@ -490,7 +527,7 @@ export function CriarConta() {
           já tem uma conta?{" "}
           <motion.span
             whileTap={{ scale: 0.95, opacity: 0.7 }}
-            onClick={() => navigate("/entrar")}
+            onClick={goToLogin}
             style={{
               fontWeight: 700,
               textDecoration: "underline",
