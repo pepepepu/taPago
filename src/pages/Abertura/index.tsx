@@ -7,13 +7,12 @@ import happyBilly from "../../assets/billy/realyHappy.png";
 const ImageWrapper = styled.div`
   width: 100vw;
   display: flex;
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
 const HeroImage = styled.img`
-  width: clamp(250px, 80%, 500px);
+  width: clamp(250px, 50%, 500px);
   max-height: 100%;
   object-fit: contain;
 `;
@@ -27,10 +26,11 @@ export function Abertura() {
       $bgColor={theme.colors.white}
       style={{
         height: "100dvh",
-        justifyContent: "flex-end",
+        display: "flex",
+        flexDirection: "column",
         alignItems: "center",
+        justifyContent: "space-between",
         padding: "36px",
-        gap: "50px",
         overflowX: "hidden",
       }}
     >
@@ -55,7 +55,7 @@ export function Abertura() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "15px",
+          gap: "10px",
           justifyContent: "center",
           alignItems: "flex-start",
         }}
