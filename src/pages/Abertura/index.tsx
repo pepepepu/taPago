@@ -34,6 +34,7 @@ export function Abertura() {
         overflowX: "hidden",
       }}
     >
+      {/* Título */}
       <Text
         $color={theme.colors.black}
         $align="left"
@@ -46,112 +47,125 @@ export function Abertura() {
       >
         bills.
       </Text>
-
+      {/* Mascote */}
       <ImageWrapper>
         <HeroImage src={happyBilly} />
       </ImageWrapper>
 
+      {/* Container Inferior */}
       <Container
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-      >
-        <Text
-          $color={theme.colors.black}
-          $align="left"
-          $size="clamp(1.8rem, 6vw, 3rem)"
-          style={{
-            fontFamily: theme.fonts.body,
-            fontWeight: 500,
-            lineHeight: 1,
-          }}
-        >
-          Organize seus boletos com tranquilidade
-        </Text>
-        <Text
-          $color={theme.colors.black}
-          $align="left"
-          $size="clamp(1rem, 3vw, 1.5rem)"
-          style={{
-            fontFamily: theme.fonts.body,
-            fontWeight: 400,
-          }}
-        >
-          porque boleto bom é boleto pago
-        </Text>
-      </Container>
-
-      <Container
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "15px",
+          gap: "30px",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Button
-          $bgColor={theme.colors.black}
-          $fullWidth
-          onClick={() => navigate("/entrar")}
+        {/* Área de Textos */}
+        <Container
           style={{
-            borderRadius: "99px",
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: "column",
+            gap: "10px",
             justifyContent: "center",
-            border: `1px solid ${theme.colors.black}`,
-          }}
-        >
-          <Text
-            $color={theme.colors.white}
-            $align="center"
-            $size="clamp(0.875rem, 2.5vw, 1.125rem)"
-            style={{
-              fontFamily: theme.fonts.highlight,
-              fontWeight: 400,
-            }}
-          >
-            entrar
-          </Text>
-          <PiArrowRightBold
-            size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
-            color={theme.colors.white}
-          />
-        </Button>
-        <Button
-          $bgColor="transparent"
-          $fullWidth
-          onClick={() => navigate("/criar-conta")}
-          style={{
-            borderRadius: "99px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            border: `1px solid ${theme.colors.black}`,
+            alignItems: "flex-start",
           }}
         >
           <Text
             $color={theme.colors.black}
-            $align="center"
-            $size="clamp(0.875rem, 2.5vw, 1.125rem)"
+            $align="left"
+            $size="clamp(1.8rem, 6vw, 3rem)"
             style={{
-              fontFamily: theme.fonts.highlight,
+              fontFamily: theme.fonts.body,
               fontWeight: 500,
+              lineHeight: 1,
             }}
           >
-            criar conta
+            Organize seus boletos com tranquilidade
           </Text>
-          <PiPlusBold
-            size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
-            color={theme.colors.black}
-          />
-        </Button>
+          <Text
+            $color={theme.colors.black}
+            $align="left"
+            $size="clamp(1rem, 3vw, 1.5rem)"
+            style={{
+              fontFamily: theme.fonts.body,
+              fontWeight: 400,
+            }}
+          >
+            porque boleto bom é boleto pago
+          </Text>
+        </Container>
+
+        {/* Área de Botões */}
+        <Container
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            $bgColor={theme.colors.black}
+            $fullWidth
+            onClick={() => navigate("/entrar")}
+            style={{
+              borderRadius: "99px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              border: `1px solid ${theme.colors.black}`,
+            }}
+          >
+            <Text
+              $color={theme.colors.white}
+              $align="center"
+              $size="clamp(0.875rem, 2.5vw, 1.125rem)"
+              style={{
+                fontFamily: theme.fonts.highlight,
+                fontWeight: 400,
+              }}
+            >
+              entrar
+            </Text>
+            <PiArrowRightBold
+              size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
+              color={theme.colors.white}
+            />
+          </Button>
+          <Button
+            $bgColor="transparent"
+            $fullWidth
+            onClick={() => navigate("/criar-conta")}
+            style={{
+              borderRadius: "99px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              border: `1px solid ${theme.colors.black}`,
+            }}
+          >
+            <Text
+              $color={theme.colors.black}
+              $align="center"
+              $size="clamp(0.875rem, 2.5vw, 1.125rem)"
+              style={{
+                fontFamily: theme.fonts.highlight,
+                fontWeight: 500,
+              }}
+            >
+              criar conta
+            </Text>
+            <PiPlusBold
+              size={"clamp(0.875rem, 2.5vw, 1.125rem)"}
+              color={theme.colors.black}
+            />
+          </Button>
+        </Container>
       </Container>
     </Container>
   );

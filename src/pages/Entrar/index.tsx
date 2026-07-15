@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
+  PiArrowFatLeftFill,
   PiArrowRightBold,
-  PiCaretLeftBold,
-  PiEyeFill,
   PiEyeClosedBold,
+  PiEyeFill,
   PiSpinnerGapBold,
 } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
@@ -37,11 +37,13 @@ export function Entrar() {
         height: "100dvh",
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
         justifyContent: "space-between",
         padding: "36px",
         overflowX: "hidden",
       }}
     >
+      {/* Título e botão de voltar */}
       <Container
         style={{
           display: "flex",
@@ -51,7 +53,7 @@ export function Entrar() {
           width: "100%",
         }}
       >
-        <button
+        <Button
           type="button"
           onClick={() => navigate(-1)}
           style={{
@@ -61,38 +63,40 @@ export function Entrar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "8px 0",
+            padding: "0px",
+            width: "auto",
           }}
         >
-          <PiCaretLeftBold size="1.5rem" color={theme.colors.black} />
-        </button>
-      <Text
-        $color={theme.colors.black}
-        $align="left"
-        $size="clamp(2rem, 5vw, 2.5rem)"
-        style={{
-          fontFamily: theme.fonts.title,
-          lineHeight: 1,
-          fontWeight: 700,
-        }}
-      >
-        bills.
-      </Text>
+          <PiArrowFatLeftFill size="1.5rem" color={theme.colors.black} />
+        </Button>
+        <Text
+          $color={theme.colors.black}
+          $align="left"
+          $size="clamp(2rem, 5vw, 2.5rem)"
+          style={{
+            fontFamily: theme.fonts.title,
+            lineHeight: 1,
+            fontWeight: 700,
+          }}
+        >
+          bills.
+        </Text>
         <div style={{ width: "1.5rem" }} />
       </Container>
 
+      {/* Área do Formulário */}
       <Container
         style={{
           display: "flex",
           flexDirection: "column",
           gap: "48px",
           alignItems: "stretch",
-          opacity: isLoading ? 0.5 : 1,
           pointerEvents: isLoading ? "none" : "auto",
           transition: "opacity 0.3s ease",
           margin: "auto 0",
         }}
       >
+        {/* Título do formulário */}
         <Container
           style={{
             display: "flex",
@@ -126,9 +130,12 @@ export function Entrar() {
           </Text>
         </Container>
 
-        <form
+        {/* Campos de inserção do formulário */}
+        <Container
+          as={"form"}
           onSubmit={handleLogin}
           style={{
+            opacity: isLoading ? 0.5 : 1,
             display: "flex",
             flexDirection: "column",
             gap: "24px",
@@ -148,7 +155,6 @@ export function Entrar() {
               style={{
                 fontFamily: theme.fonts.highlight,
                 fontWeight: 500,
-                letterSpacing: "-1px",
               }}
             >
               email
@@ -175,12 +181,17 @@ export function Entrar() {
               style={{
                 fontFamily: theme.fonts.highlight,
                 fontWeight: 500,
-                letterSpacing: "-1px",
               }}
             >
               senha
             </Text>
-            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <TextInput
                 type={showPassword ? "text" : "password"}
                 placeholder="sua senha de acesso"
@@ -189,7 +200,7 @@ export function Entrar() {
                 required
                 style={{ paddingRight: "48px" }}
               />
-              <button
+              <Button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
@@ -209,7 +220,7 @@ export function Entrar() {
                 ) : (
                   <PiEyeFill size="1.25rem" color={theme.colors.black} />
                 )}
-              </button>
+              </Button>
             </div>
             <Text
               $color={theme.colors.black}
@@ -217,6 +228,7 @@ export function Entrar() {
               $size="0.875rem"
               onClick={() => navigate("/esqueci-senha")}
               style={{
+                width: "auto",
                 fontFamily: theme.fonts.highlight,
                 fontWeight: 500,
                 textDecoration: "underline",
@@ -229,6 +241,7 @@ export function Entrar() {
             </Text>
           </Container>
 
+          {/* Botão de Login */}
           <Button
             type="submit"
             $bgColor={theme.colors.black}
@@ -249,7 +262,11 @@ export function Entrar() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
-                style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
                 <PiSpinnerGapBold size="1.5rem" color={theme.colors.white} />
               </motion.div>
@@ -273,9 +290,10 @@ export function Entrar() {
               </>
             )}
           </Button>
-        </form>
+        </Container>
       </Container>
 
+      {/* Botão de cadastrar */}
       <Container
         style={{
           display: "flex",
@@ -292,7 +310,6 @@ export function Entrar() {
           style={{
             fontFamily: theme.fonts.highlight,
             fontWeight: 400,
-            letterSpacing: "-1px",
           }}
         >
           não tem uma conta?{" "}
