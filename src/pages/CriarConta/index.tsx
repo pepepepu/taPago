@@ -448,3 +448,5 @@ export function CriarConta() {
     </Container>
   );
 }
+
+export default CriarConta;
