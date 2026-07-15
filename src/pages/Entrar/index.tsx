@@ -11,6 +11,28 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { Button, Container, Text, TextInput } from "../../components";
 
+const MotionButton = motion(Button);
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 300, damping: 24 },
+  } as const,
+};
+
 export function Entrar() {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -32,6 +54,10 @@ export function Entrar() {
 
   return (
     <Container
+      as={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
       $bgColor={theme.colors.white}
       style={{
         height: "100dvh",
@@ -43,7 +69,6 @@ export function Entrar() {
         overflowX: "hidden",
       }}
     >
-      {/* Título e botão de voltar */}
       <Container
         style={{
           display: "flex",
@@ -53,9 +78,11 @@ export function Entrar() {
           width: "100%",
         }}
       >
-        <Button
+        <motion.button
+          variants={itemVariants}
           type="button"
           onClick={() => navigate(-1)}
+          whileTap={{ scale: 0.8 }}
           style={{
             background: "transparent",
             border: "none",
@@ -68,23 +95,24 @@ export function Entrar() {
           }}
         >
           <PiArrowFatLeftFill size="1.5rem" color={theme.colors.black} />
-        </Button>
-        <Text
-          $color={theme.colors.black}
-          $align="left"
-          $size="clamp(2rem, 5vw, 2.5rem)"
-          style={{
-            fontFamily: theme.fonts.title,
-            lineHeight: 1,
-            fontWeight: 700,
-          }}
-        >
-          bills.
-        </Text>
+        </motion.button>
+        <motion.div variants={itemVariants}>
+          <Text
+            $color={theme.colors.black}
+            $align="left"
+            $size="clamp(2rem, 5vw, 2.5rem)"
+            style={{
+              fontFamily: theme.fonts.title,
+              lineHeight: 1,
+              fontWeight: 700,
+            }}
+          >
+            bills.
+          </Text>
+        </motion.div>
         <div style={{ width: "1.5rem" }} />
       </Container>
 
-      {/* Área do Formulário */}
       <Container
         style={{
           display: "flex",
@@ -96,7 +124,6 @@ export function Entrar() {
           margin: "auto 0",
         }}
       >
-        {/* Título do formulário */}
         <Container
           style={{
             display: "flex",
@@ -105,34 +132,36 @@ export function Entrar() {
             alignItems: "flex-start",
           }}
         >
-          <Text
-            $color={theme.colors.black}
-            $align="left"
-            $size="clamp(2.5rem, 8vw, 3.5rem)"
-            style={{
-              fontFamily: theme.fonts.title,
-              lineHeight: 1,
-              fontWeight: 700,
-            }}
-          >
-            entrar.
-          </Text>
-          <Text
-            $color={theme.colors.black}
-            $align="left"
-            $size="clamp(1rem, 3vw, 1.2rem)"
-            style={{
-              fontFamily: theme.fonts.body,
-              fontWeight: 400,
-            }}
-          >
-            que bom ver você por aqui novamente.
-          </Text>
+          <motion.div variants={itemVariants}>
+            <Text
+              $color={theme.colors.black}
+              $align="left"
+              $size="clamp(2.5rem, 8vw, 3.5rem)"
+              style={{
+                fontFamily: theme.fonts.title,
+                lineHeight: 1,
+                fontWeight: 700,
+              }}
+            >
+              entrar.
+            </Text>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Text
+              $color={theme.colors.black}
+              $align="left"
+              $size="clamp(1rem, 3vw, 1.2rem)"
+              style={{
+                fontFamily: theme.fonts.body,
+                fontWeight: 400,
+              }}
+            >
+              que bom ver você por aqui novamente.
+            </Text>
+          </motion.div>
         </Container>
 
-        {/* Campos de inserção do formulário */}
-        <Container
-          as={"form"}
+        <form
           onSubmit={handleLogin}
           style={{
             opacity: isLoading ? 0.5 : 1,
@@ -140,14 +169,12 @@ export function Entrar() {
             flexDirection: "column",
             gap: "24px",
             width: "100%",
+            transition: "opacity 0.3s ease",
           }}
         >
-          <Container
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            }}
+          <motion.div
+            variants={itemVariants}
+            style={{ display: "flex", flexDirection: "column", gap: "8px" }}
           >
             <Text
               $color={theme.colors.black}
@@ -166,14 +193,11 @@ export function Entrar() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </Container>
+          </motion.div>
 
-          <Container
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            }}
+          <motion.div
+            variants={itemVariants}
+            style={{ display: "flex", flexDirection: "column", gap: "8px" }}
           >
             <Text
               $color={theme.colors.black}
@@ -198,10 +222,11 @@ export function Entrar() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{ paddingRight: "48px" }}
+                style={{ paddingRight: "48px", width: "100%" }}
               />
-              <Button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.8 }}
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   position: "absolute",
@@ -220,81 +245,96 @@ export function Entrar() {
                 ) : (
                   <PiEyeFill size="1.25rem" color={theme.colors.black} />
                 )}
-              </Button>
+              </motion.button>
             </div>
-            <Text
-              $color={theme.colors.black}
-              $align="right"
-              $size="0.875rem"
+            <motion.div
+              whileTap={{ scale: 0.95, opacity: 0.7 }}
               onClick={() => navigate("/esqueci-senha")}
               style={{
-                width: "auto",
-                fontFamily: theme.fonts.highlight,
-                fontWeight: 500,
-                textDecoration: "underline",
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
                 cursor: "pointer",
                 marginTop: "8px",
-                letterSpacing: "-1px",
               }}
             >
-              esqueci a senha
-            </Text>
-          </Container>
-
-          {/* Botão de Login */}
-          <Button
-            type="submit"
-            $bgColor={theme.colors.black}
-            $fullWidth
-            style={{
-              borderRadius: "99px",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              border: `1px solid ${theme.colors.black}`,
-              marginTop: "16px",
-              padding: "16px",
-              height: "56px",
-            }}
-          >
-            {isLoading ? (
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
+              <Text
+                $color={theme.colors.black}
+                $align="right"
+                $size="0.875rem"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  fontFamily: theme.fonts.highlight,
+                  fontWeight: 500,
+                  textDecoration: "underline",
+                  letterSpacing: "-1px",
                 }}
               >
-                <PiSpinnerGapBold size="1.5rem" color={theme.colors.white} />
-              </motion.div>
-            ) : (
-              <>
-                <Text
-                  $color={theme.colors.white}
-                  $align="center"
-                  $size="clamp(0.875rem, 2.5vw, 1.125rem)"
+                esqueci a senha
+              </Text>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            style={{ width: "100%", marginTop: "16px" }}
+          >
+            <MotionButton
+              type="submit"
+              whileTap={{ gap: "32px", scale: 0.95 }}
+              $bgColor={theme.colors.black}
+              $fullWidth
+              style={{
+                borderRadius: "99px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                border: `1px solid ${theme.colors.black}`,
+                padding: "16px",
+                height: "56px",
+                gap: "8px",
+              }}
+            >
+              {isLoading ? (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
                   style={{
-                    fontFamily: theme.fonts.highlight,
-                    fontWeight: 500,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  entrar
-                </Text>
-                <PiArrowRightBold
-                  size="clamp(0.875rem, 2.5vw, 1.125rem)"
-                  color={theme.colors.white}
-                />
-              </>
-            )}
-          </Button>
-        </Container>
+                  <PiSpinnerGapBold size="1.5rem" color={theme.colors.white} />
+                </motion.div>
+              ) : (
+                <>
+                  <Text
+                    $color={theme.colors.white}
+                    $align="center"
+                    $size="clamp(0.875rem, 2.5vw, 1.125rem)"
+                    style={{
+                      fontFamily: theme.fonts.highlight,
+                      fontWeight: 500,
+                      pointerEvents: "none",
+                    }}
+                  >
+                    entrar
+                  </Text>
+                  <PiArrowRightBold
+                    size="clamp(0.875rem, 2.5vw, 1.125rem)"
+                    color={theme.colors.white}
+                    style={{ pointerEvents: "none" }}
+                  />
+                </>
+              )}
+            </MotionButton>
+          </motion.div>
+        </form>
       </Container>
 
-      {/* Botão de cadastrar */}
-      <Container
+      <motion.div
+        variants={itemVariants}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -313,18 +353,20 @@ export function Entrar() {
           }}
         >
           não tem uma conta?{" "}
-          <span
+          <motion.span
+            whileTap={{ scale: 0.95, opacity: 0.7 }}
             onClick={() => navigate("/criar-conta")}
             style={{
               fontWeight: 700,
               textDecoration: "underline",
               cursor: "pointer",
+              display: "inline-block",
             }}
           >
             cadastre-se
-          </span>
+          </motion.span>
         </Text>
-      </Container>
+      </motion.div>
     </Container>
   );
 }
