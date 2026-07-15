@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   PiArrowFatLeftFill,
   PiArrowRightBold,
-  PiEyeBold,
+  PiEyeFill,
   PiEyeClosedBold,
   PiSpinnerGapBold,
 } from "react-icons/pi";
@@ -212,7 +212,7 @@ export function CriarConta() {
               </Text>
               <TextInput
                 type="text"
-                placeholder="DD/MM/AAAA"
+                placeholder="dd/mm/aaaa"
                 value={birthDate}
                 onChange={handleDateChange}
                 required
@@ -298,7 +298,7 @@ export function CriarConta() {
                       color={theme.colors.black}
                     />
                   ) : (
-                    <PiEyeBold size="1.25rem" color={theme.colors.black} />
+                    <PiEyeFill size="1.25rem" color={theme.colors.black} />
                   )}
                 </button>
               </div>
@@ -357,7 +357,7 @@ export function CriarConta() {
                       color={theme.colors.black}
                     />
                   ) : (
-                    <PiEyeBold size="1.25rem" color={theme.colors.black} />
+                    <PiEyeFill size="1.25rem" color={theme.colors.black} />
                   )}
                 </button>
               </div>
